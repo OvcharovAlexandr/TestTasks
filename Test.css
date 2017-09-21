@@ -1,0 +1,96 @@
+#OuterSqr {
+    
+    float: left;
+    width: 302px;
+    height: 302px;
+    margin: 50px auto auto 50px;
+}
+
+.MainSqr {
+    
+    float: left;
+    width: 200px;
+    height: 200px;
+    border: 1px solid skyblue;
+    background-color: red;    
+}
+
+.cell {
+    
+    float: left;
+    width: 48px;
+    height: 48px;
+    border: 1px solid white;
+    background-color: skyblue;    
+}
+
+.cell::after {
+    
+    content:"";
+    display: block;
+    clear: both;
+}
+
+.AddButton {
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+    border: 1px solid white;
+    background-color: orange;    
+    text-align: center;
+    font-size: 25px;
+    color: white;
+    font-weight: bold;
+}
+
+.DelButton {
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+    border: 1px solid white;
+    background-color: red;    
+    text-align: center;
+    font-size: 25px;
+    color: white;
+    font-weight: bold;
+    visibility: hidden;
+}
+
+
+.AddButton::after {
+    
+    content:"";
+    display: block;
+    clear: both;
+}
+
+.DelButton::after {
+    
+    content:"";
+    display: block;
+    clear: both;
+}
+
+
+#AddColumn {
+ 
+    float: left; 
+    margin: 1px 0px 0px 0px;    
+}
+
+#AddLine {
+  
+    float: left;
+    margin: 0px 0px 0px 51px;    
+}
+
+#DelLine {
+ 
+    float: left;   
+}
+
+#DelColumn {
+  
+    margin: 0px 0px 0px 50px;  
+}
+
