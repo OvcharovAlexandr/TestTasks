@@ -1,8 +1,9 @@
 var colCount, lineCount;
-var docArea, outerSqr, addL, addC, delL, delC;
+var outerSqr, mainSqr, addL, addC, delL, delC;
 
-docArea = document.getElementsByTagName("body")[0];
+
 outerSqr = document.getElementById("OuterSqr");
+mainSqr     = document.getElementById("MainSqr");
 
 addL = document.getElementById("AddLine");
 addC = document.getElementById("AddColumn");
@@ -31,19 +32,8 @@ delC.onclick = function (){
 
 // target
 
-docArea.onmouseenter = function() {
-   
-    hideButton(delL);
-    hideButton(delC);  
-}
-
-outerSqr.onmouseenter = function() {
-   
-    hideButton(delL);
-    hideButton(delC); 
-}
-
 addL.onmouseenter = function (){
+    
     targetOnAddButton(this);
     
     hideButton(delL);
@@ -84,6 +74,13 @@ delL.onmouseleave = function (){
 delC.onmouseleave = function (){
     untargetOnDelButton(this);
     hideButton(delC);
+} 
+
+mainSqr.onmouseleave = function (Event){
+    
+//    hideButton(delL);
+//    hideButton(delC);
+
 } 
 
 //Инициализация
@@ -152,9 +149,8 @@ function delLine() {
 
 function formMainSqr() {
     
-    var cellAmount, textHTML, mainSqr;
+    var cellAmount, textHTML;
     
-    mainSqr     = document.getElementById("MainSqr");
     cellAmount  = colCount * lineCount + 1;
     textHTML    = '';
     
