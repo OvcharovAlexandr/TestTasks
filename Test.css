@@ -1,98 +1,82 @@
-#OuterSqr {
+.Ramka {
+    position: relative;
+    box-sizing: border-box;
+    display: table;
     
-    float: left;
-    width: 302px;
-    height: 302px;
-    margin: 50px auto auto 50px;
+    left: 50px;
+    top: 50px;
+    
+    padding: 1px;
+    border: 1px solid #48aae6;      
 }
 
-.MainSqr {
-    
-    float: left;
-    width: 200px;
-    height: 200px;
-    border: 1px solid skyblue;
-    background-color: red;    
-}
-
-.cell {
-    
-    float: left;
-    width: 48px;
-    height: 48px;
+.Cell { 
+    width: 50px;
+    height: 50px;
+    line-height: 48px;
     border: 1px solid white;
-    background-color: skyblue;    
+    box-sizing: border-box;    
 }
 
-.cell::after {
-    
-    content:"";
-    display: block;
-    clear: both;
+.Button {
+    position: absolute;
+    display: table;
+    cursor: pointer;
+    text-align: center;
+    font-size: 25px;
+    vertical-align: middle;
+    color: white;
+    font-weight: bold;
+    transition: background-color 3s, visibility ease 0.5s, left 0.5s, top 0.5s;
 }
 
 .AddButton {
-    width: 48px;
-    height: 48px;
-    line-height: 48px;
-    border: 1px solid white;
-    background-color: orange;    
-    text-align: center;
-    font-size: 25px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
+    background-color: #f3a500;
+}
+
+.AddButton:hover{
+    background-color: #f6c052;    
+}
+
+.js-AddColumn {
+    
+    left: calc(100% + 2px);
+    top: 1px;
+    
+}
+
+.js-AddLine {
+    
+    left: 1px;
+    top: calc(100% + 2px);
+    
 }
 
 .DelButton {
-    width: 48px;
-    height: 48px;
-    line-height: 48px;
-    border: 1px solid white;
-    background-color: red;    
-    text-align: center;
-    font-size: 25px;
-    color: white;
-    font-weight: bold;
-    visibility: hidden;
-    cursor: pointer;
+    background-color: #b20000;
+     visibility: hidden; 
 }
 
-
-.AddButton::after {
-    
-    content:"";
-    display: block;
-    clear: both;
+.DelButton:hover{
+    background-color: #ca4c49;
 }
 
-.DelButton::after {
-    
-    content:"";
-    display: block;
-    clear: both;
+.js-DelColumn {
+    left: 1px;
+    top: -52px;    
 }
 
-
-#AddColumn {
- 
-    float: left; 
-    margin: 1px 0px 0px 0px;    
+.js-DelLine {
+    left: -52px;
+    top: 1px;    
 }
 
-#AddLine {
-  
-    float: left;
-    margin: 0px 0px 0px 51px;    
+.DynTable {
+    position: relative;
+    padding: 0;
+    border-spacing: 0px;
 }
 
-#DelLine {
- 
-    float: left;   
+.DynTable__Cell{ 
+    background-color: #48aae6;
 }
-
-#DelColumn {
-  
-    margin: 0px 0px 0px 50px;  
-}
-

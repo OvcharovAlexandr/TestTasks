@@ -1,279 +1,173 @@
-var colCount, lineCount;
-var outerSqr, mainSqr, addL, addC, delL, delC;
 
-
-outerSqr = document.getElementById("OuterSqr");
-mainSqr     = document.getElementById("MainSqr");
-
-addL = document.getElementById("AddLine");
-addC = document.getElementById("AddColumn");
-
-delL = document.getElementById("DelLine");
-delC = document.getElementById("DelColumn");
-
-// click
-addL.onclick = function (){
-    addLine();
-}
-
-addC.onclick = function (){
-    addColumn();
-}
-
-delL.onclick = function (){
-    delLine();
-    hideButton(delL);   
-}
-
-delC.onclick = function (){
-    delColumn();
-    hideButton(delC);
-}
-
-// target
-
-addL.onmouseenter = function (){
+class DynamicTable {
     
-    targetOnAddButton(this);
-    
-    hideButton(delL);
-    hideButton(delC);
-    
-} 
-
-addC.onmouseenter = function (){
-    targetOnAddButton(this);
-    
-    hideButton(delL);
-    hideButton(delC);
-} 
-
-delL.onmouseenter = function (){
-    targetOnDelButton(this);
-    hideButton(delC);
-} 
-
-delC.onmouseenter = function (){
-    targetOnDelButton(this);
-    hideButton(delL);
-} 
-
-addL.onmouseleave = function (){
-    untargetOnAddButton(this);
-} 
-
-addC.onmouseleave = function (){
-    untargetOnAddButton(this);
-} 
-
-delL.onmouseleave = function (){
-    untargetOnDelButton(this);
-    hideButton(delL);
-} 
-
-delC.onmouseleave = function (){
-    untargetOnDelButton(this);
-    hideButton(delC);
-} 
-
-mainSqr.onmouseleave = function (Event){
-    
-//    hideButton(delL);
-//    hideButton(delC);
-
-} 
-
-//Инициализация
-
-initiate();
-
-function initiate() {
-    
-    colCount    = 4;
-    lineCount   = 4;
-    
-    setSizes();
-    formMainSqr();
-
-}
-
-// управление ячейками
-
-function addColumn() {
-     
-    colCount ++;
-
-    setSizes();
-    formMainSqr();
-
-}
-
-function addLine() {
-    
-    lineCount ++;
-
-    setSizes();
-    formMainSqr();
-
-}
-
-function delColumn() {
-    
-    if (colCount == 1) {
-        
-        return;
+    constructor(InColCount = 1, InLineCount = 1) {
+        this.ColCount   = InColCount;
+        this.LineCount  = InLineCount;
     }
     
-    colCount --;
+    addColumn() {
 
-    setSizes();
-    formMainSqr();
-
-}
-
-function delLine() {
-    
-    if (lineCount == 1) {
+        this.ColCount ++;
         
-        return;
+        let rows = document.getElementsByClassName("DynTable__tr");
+        
+        for(let row of rows) {
+            
+            let FirstElement    = row.firstElementChild;
+            let NewElement      = FirstElement.cloneNode();
+            
+            row.appendChild(NewElement);    
+        }
+                
     }
     
-    lineCount --;
-
-    setSizes();
-    formMainSqr();
-
-}
-
-// упраление отображением
-
-function formMainSqr() {
-    
-    var cellAmount, textHTML;
-    
-    cellAmount  = colCount * lineCount + 1;
-    textHTML    = '';
-    
-    for (var i=1; i<cellAmount; i++){
-		textHTML += "<div class='cell' count =" + i +"> </div>"; 
-        //console.log("Добавлен элемент:" + i);
-	}
-    
-    mainSqr.innerHTML = textHTML; 
-    
-    // добавим ячейкам обрботчик события 
-    setEventToCells();
-}
-
-function setEventToCells() {
-    
-    var cells;
-    cells = document.getElementsByClassName("cell");
-    
-    for (var key in cells) {
+    addLine() {
         
-        cells[key].onmouseenter = function () {
-          
-            var count = this.getAttribute("count");
-            targetOnCell(count);  
-            
-            if (lineCount == 1) {
-                hideButton(delL); 
-            }else {
-                showButton(delL);
-            }
-            
-            if (colCount == 1) {
-                hideButton(delC); 
-            }else {
-                showButton(delC);
-            }
-            
+        this.LineCount ++; 
+        
+        let CurTable = document.querySelector(".DynTable");
+        let CurTBody = CurTable.firstElementChild;
+        
+        let FirstElement    = CurTBody.firstElementChild;
+        let NewElement      = FirstElement.cloneNode(true);
+        
+        CurTBody.appendChild(NewElement);    
+        
+    }
+    
+    delColumn() {
+       
+        if (this.ColCount == 1) {
+            return;
+        }
+        
+        this.ColCount --;
+        
+        let rows = document.getElementsByClassName("DynTable__tr");
+        
+        for(let row of rows) {
+        
+            let LastElement    = row.lastElementChild;
+            row.removeChild(LastElement);    
         }
         
     }
     
-}
-
-function setSizes() {
-    
-    var mainSqr, outerSqr;
-    
-    mainSqr  = document.getElementById("MainSqr");
-
-    mainSqr.style.width = "" + colCount * 50 + "px";
-    mainSqr.style.height = "" + lineCount * 50 + "px";
-    
-    outerSqr = document.getElementById("OuterSqr");
-    
-    outerSqr.style.width = "" + (102 + colCount * 50) + "px";
-    outerSqr.style.height = "" + (102 + lineCount * 50) + "px"; 
-    
-}
-
-function targetOnAddButton(button) {
-    
-    button.style.background = "yellow";
-    button.style.transition = "background 2.5s";
-    
-}
-
-function untargetOnAddButton(button) {
-    
-    button.style.background = "orange";
-    button.style.transition = "background 2.5s";
-    
-}
-
-function targetOnDelButton(button) {
-    
-    button.style.background = "lightcoral";
-    button.style.transition = "background 2.5s";
-    
-}
-
-function untargetOnDelButton(button) {
-    
-    button.style.background = "red";
-    button.style.transition = "background 2.5s";
-    
-}
-
-// положение кнопок удаления
-function targetOnCell(count) {
-  
-    var curX, curY, posX, posY;
-    
-    if ((count % colCount) == 0) {
-      
-        curX = colCount;
-        curY = Math.floor(count / colCount);    
-    }
-    else {
-        curX = count % colCount;  
-        curY = Math.floor(count / colCount) + 1;        
-    }
-    
-    posX = 1 + curX * 50;
-    posY = 1 + (curY - 1) * 50;
+    delLine() {
        
-    delC.style.marginLeft   = "" + posX + "px";
-    //delC.style.transition = "margin 1s";
-    
-    delL.style.marginTop    = "" + posY + "px";
-    //delL.style.transition = "margin 1s";
-    
+        if (this.LineCount == 1) {
+            return;
+        }
+        
+        this.LineCount --;
+        
+        let CurTable = document.querySelector(".DynTable");
+        let CurTBody = CurTable.firstElementChild;
+        
+        let LastElement = CurTBody.lastElementChild;
+        
+        CurTBody.removeChild(LastElement);    
+    }
+        
 }
 
-// управляем видимостью кнопок удаления
-function hideButton(button) {
+let DynTable = new DynamicTable(4, 4);
 
-    button.style.visibility = "hidden";   
+let outerDiv = document.querySelector(".Ramka");
+outerDiv.addEventListener('click', checkEvent);
+outerDiv.addEventListener('mouseover', checkEvent);
+outerDiv.addEventListener('mouseout', checkEvent);
+
+DynTable.addColumn();
+DynTable.addLine();
+
+function checkEvent(e) {
+
+    if (e.type === 'click') {
+        
+        if (e.target.classList.contains('js-AddColumn')) {
+            
+            DynTable.addColumn(); 
+            
+        }else if (e.target.classList.contains('js-AddLine')) {
+            
+            DynTable.addLine();
+            
+        }else if (e.target.classList.contains('js-DelColumn')) {
+            
+            let DelColButton = document.querySelector(".js-DelColumn");
+            DelColButton.style.visibility = 'hidden';       
+            
+            DynTable.delColumn();
+            
+        }else if (e.target.classList.contains('js-DelLine')) {
+            
+            let DellineButton = document.querySelector(".js-DelLine");
+            DellineButton.style.visibility = 'hidden';
+            
+            DynTable.delLine();
+            
+        }        
+        
+    }else if(e.type === 'mouseover'){
+       
+        if (e.target.classList.contains('DynTable__Cell')) {
+            
+            //Обработка события наведения на ячейки (спозиционируем кнопки удаления)
+            let DelColButton = document.querySelector(".js-DelColumn");
+            
+            if (DynTable.ColCount === 1){
+                
+                DelColButton.style.visibility = 'hidden';
+            }else {
+                
+                DelColButton.style.visibility = 'visible';
+                
+                let CurLeft = e.target.offsetLeft + 1;
+                DelColButton.style.left = CurLeft + 'px';    
+            }
+            
+            let DellineButton = document.querySelector(".js-DelLine");
+            
+            if (DynTable.LineCount === 1){
+                
+                DellineButton.style.visibility = 'hidden';
+            
+            }else {
+                
+                DellineButton.style.visibility = 'visible';
+                
+                let CurTop = e.target.offsetTop + 1;
+                DellineButton.style.top = CurTop + 'px';
+            }
+            
+            
+        }else if (e.target.classList.contains('DelButton')) {
+            
+            e.target.style.visibility = 'visible';
+            
+        }
+        
+    }else if(e.type === 'mouseout'){
+       
+        if (e.target.classList.contains('DelButton')) {
+            
+            e.target.style.visibility = 'hidden';
+            
+        }else if(e.target.classList.contains('DynTable__Cell')) {
+        
+            console.log(e.type);
+            
+            let DellineButton = document.querySelector(".js-DelLine");
+            DellineButton.style.visibility = 'hidden';
+            
+            let DelColButton = document.querySelector(".js-DelColumn");
+            DelColButton.style.visibility = 'hidden';       
+            
+        }
+        
+
+    }    
 }
-
-function showButton(button) {
-    
-    button.style.visibility = "visible";    
-}
-
 

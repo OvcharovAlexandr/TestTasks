@@ -7,23 +7,48 @@
     <script src="Test.js" defer></script>
 </head>
 <body>
-    
-    <div id='OuterSqr'>
-    
-      <div id="DelColumn" class='DelButton'><b>-</b></div>
-      
-       <div id="DelLine" class='DelButton'><b>-</b></div>
+
+    <div class='Ramka'>
+                     
+        <table class='DynTable'>
        
-        <div id='MainSqr' class='MainSqr'>
+            <tr class='DynTable__tr'>
+                <td class='Cell DynTable__Cell' ></td>
+                <td class='Cell DynTable__Cell' ></td>
+                <td class='Cell DynTable__Cell' ></td>
+                <td class='Cell DynTable__Cell' ></td>
+            </tr> 
+           
+            <tr class='DynTable__tr'>
+                <td class='Cell DynTable__Cell' ></td>
+                <td class='Cell DynTable__Cell' ></td>
+                <td class='Cell DynTable__Cell' ></td>
+                <td class='Cell DynTable__Cell' ></td>
+            </tr> 
+           
+            <tr class='DynTable__tr'>
+                <td class='Cell DynTable__Cell' ></td>
+                <td class='Cell DynTable__Cell' ></td>
+                <td class='Cell DynTable__Cell' ></td>
+                <td class='Cell DynTable__Cell' ></td>
+            </tr>          
         
-           //здесь будут располагаться коды ячеек
-        
-        </div>
+            <tr class='DynTable__tr'>
+                <td class='Cell DynTable__Cell' ></td>
+                <td class='Cell DynTable__Cell' ></td>
+                <td class='Cell DynTable__Cell' ></td>
+                <td class='Cell DynTable__Cell' ></td>
+            </tr>         
+            
+        </table>
     
-        <div id="AddColumn" class='AddButton'><b>+</b></div>
-        <div id="AddLine" class='AddButton'><b>+</b></div>
-    
-    </div>
-    
+        <div class='Cell Button AddButton js-AddColumn' >+</div>
+        <div class='Cell Button AddButton js-AddLine' >+</div>
+
+        <div class='Cell Button DelButton js-DelColumn' >-</div>
+        <div class='Cell Button DelButton js-DelLine' >-</div>
+
+    </div>             
+               
 </body>
 </html>
