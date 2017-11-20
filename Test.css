@@ -1,77 +1,23 @@
-.Ramka {
+.DynTable {
     position: relative;
     box-sizing: border-box;
     display: table;
     
-    left: 50px;
-    top: 50px;
+    margin-left: 60px;
+    margin-top: 60px;
     
     padding: 1px;
     border: 1px solid #48aae6;      
 }
 
-.Cell { 
+.DynTable__Sqr { 
     width: 50px;
     height: 50px;
-    line-height: 48px;
     border: 1px solid white;
     box-sizing: border-box;    
 }
 
-.Button {
-    position: absolute;
-    display: table;
-    cursor: pointer;
-    text-align: center;
-    font-size: 25px;
-    vertical-align: middle;
-    color: white;
-    font-weight: bold;
-    transition: background-color 3s, visibility ease 0.5s, left 0.5s, top 0.5s;
-}
-
-.AddButton {
-    background-color: #f3a500;
-}
-
-.AddButton:hover{
-    background-color: #f6c052;    
-}
-
-.js-AddColumn {
-    
-    left: calc(100% + 2px);
-    top: 1px;
-    
-}
-
-.js-AddLine {
-    
-    left: 1px;
-    top: calc(100% + 2px);
-    
-}
-
-.DelButton {
-    background-color: #b20000;
-     visibility: hidden; 
-}
-
-.DelButton:hover{
-    background-color: #ca4c49;
-}
-
-.js-DelColumn {
-    left: 1px;
-    top: -52px;    
-}
-
-.js-DelLine {
-    left: -52px;
-    top: 1px;    
-}
-
-.DynTable {
+.DynTable__Table {
     position: relative;
     padding: 0;
     border-spacing: 0px;
@@ -79,4 +25,62 @@
 
 .DynTable__Cell{ 
     background-color: #48aae6;
+}
+
+.DynTable__Button {
+    position: absolute;
+    cursor: pointer;
+    
+    text-align: center;
+    vertical-align: middle;
+    
+    font-size: 25px;
+    color: white;
+    font-weight: bold;
+    transition: background-color 3s, visibility ease 0.5s, left 0.5s, top 0.5s;
+}
+
+.DynTable__AddButton {
+    background-color: #f3a500;
+}
+
+.DynTable__AddButton:hover{
+    background-color: #f6c052;    
+}
+
+.DynTable__AddColumn {
+    
+    left: 100%;
+    margin-left: 2px;
+    top: 1px;
+    
+}
+
+.DynTable__AddLine {
+    
+    left: 1px;
+    top: 100%;
+    margin-top: 2px;
+    
+}
+
+.DynTable__DelButton {
+    background-color: #b20000;
+     visibility: hidden; 
+}
+
+.DynTable__DelButton:hover{
+    background-color: #ca4c49;
+}
+
+.DynTable__DelColumn {
+    margin-left: 1px;
+    bottom: 100%;    
+    margin-bottom: 2px
+}
+
+.DynTable__DelLine {
+    margin-top: 1px;    
+    right: 100%;
+    margin-right: 2px;
 }
