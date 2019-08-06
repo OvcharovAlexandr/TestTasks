@@ -43,7 +43,7 @@
     margin-left: 2px;
     top: 1px;
 }
-.DynamicTable__AddLine {
+.DynamicTable__AddRow {
     left: 1px;
     top: 100%;
     margin-top: 2px;
@@ -62,7 +62,7 @@
     bottom: 100%;    
     margin-bottom: 2px
 }
-.DynamicTable__DelLine {
+.DynamicTable__DelRow {
     margin-top: 1px;    
     right: 100%;
     margin-right: 2px;
