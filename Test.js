@@ -1,109 +1,96 @@
 
 class DynamicTable {
        
-    constructor(index) {
-        
-        this.ColCount   = 4;
-        this.LineCount  = 4;
-        
-        this.outerDiv = document.querySelector(".DynTableInd_" + index);
-        this.CurTable = this.outerDiv.querySelector(".DynTable__Table");
-        
-        this.DelColButton = this.outerDiv.querySelector(".DynTable__DelColumn");
-        this.DellineButton = this.outerDiv.querySelector(".DynTable__DelLine");
-        
-        this.AddColumnButton = this.outerDiv.querySelector(".DynTable__AddColumn");
-        this.AddLineButton = this.outerDiv.querySelector(".DynTable__AddLine");
-        
-        //Add buttons   
+    constructor(ColCount, LineCount) {
+
+        this.ColCount   = ColCount;
+        this.LineCount  = LineCount;
+        //Creating of DOM elements
+        this.body = document.querySelector("body");
+        this.outerDiv = this.body.appendChild(document.createElement("div"));
+        this.outerDiv.className = "DynamicTable";
+        //table
+        this.CurTable = this.outerDiv.appendChild(document.createElement("table"));
+        this.CurTable.className = "DynamicTable__Table";
+
+        for(let rowIndex = 0; rowIndex < LineCount; rowIndex++) {
+            const newRow = this.CurTable.appendChild(document.createElement("tr"));
+            newRow.className = "DynamicTable__Row";
+            for(let colIndex = 0; colIndex < ColCount; colIndex++) {
+                const newCell = newRow.appendChild(document.createElement("td"));
+                newCell.className = "DynamicTable__Sqr DynamicTable__Cell";
+            }
+        }
+
+        //buttons
+        this.DelColButton = this.outerDiv.appendChild(document.createElement("button"));
+        this.DelColButton.className = "DynamicTable__Sqr DynamicTable__Button DynamicTable__DelButton DynamicTable__DelColumn";
+        this.DelColButton.innerText = "-";
+
+        this.DellineButton = this.outerDiv.appendChild(document.createElement("button"));
+        this.DellineButton.className = "DynamicTable__Sqr DynamicTable__Button DynamicTable__DelButton DynamicTable__DelLine";
+        this.DellineButton.innerText = "-";
+
+        this.AddColumnButton = this.outerDiv.appendChild(document.createElement("button"));
+        this.AddColumnButton.className = "DynamicTable__Sqr DynamicTable__Button DynamicTable__AddButton DynamicTable__AddColumn";
+        this.AddColumnButton.innerText = "+";
+
+        this.AddLineButton = this.outerDiv.appendChild(document.createElement("button"));
+        this.AddLineButton.className = "DynamicTable__Sqr DynamicTable__Button DynamicTable__AddButton DynamicTable__AddLine";
+        this.AddLineButton.innerText = "+";
+
+        //Event listeners
         this.AddColumnButton.addEventListener('click', () => this.addColumn());
         this.AddLineButton.addEventListener('click', () => this.addLine());
-        
-        //Del buttons
-        this.DelColButton.addEventListener('click', ()=> {
-                                                        this.DelColButton.style.visibility = 'hidden';
-                                                        this.delColumn();
-                                                    });
-        
-        this.DellineButton.addEventListener('click', ()=> {
-                                                            this.DellineButton.style.visibility = 'hidden';
-                                                            this.delLine();
-                                                    });
-        
-        //outer Div
+        this.DelColButton.addEventListener('click', ()=> this.delColumn());
+        this.DellineButton.addEventListener('click', ()=> this.delLine());
         this.outerDiv.addEventListener('mouseover', (event)=> this.checkMouseOverEvent(event));
         this.outerDiv.addEventListener('mouseout', (event)=> this.checkMouseOutEvent(event));
-        
+
     }
     
     addColumn() {
-
         this.ColCount ++;
-        
-        let rows = this.CurTable.getElementsByClassName("DynTable__Row");
-        
-        for(let row of rows) {
-            
-            let FirstElement    = row.firstElementChild;
-            let NewElement      = FirstElement.cloneNode();
-            
-            row.appendChild(NewElement);    
-        }
-                
+        for (let rowIndex = 0; rowIndex < this.LineCount; rowIndex++) {
+            const newCell = this.CurTable.childNodes[rowIndex].appendChild(document.createElement("td"));
+            newCell.className = "DynamicTable__Sqr DynamicTable__Cell";
+        };
     }
     
     addLine() {
-        
-        this.LineCount ++; 
-        
-        let CurTBody = this.CurTable.firstElementChild;
-        
-        let FirstElement    = CurTBody.firstElementChild;
-        let NewElement      = FirstElement.cloneNode(true);
-        
-        CurTBody.appendChild(NewElement);    
-        
+        this.LineCount ++;
+        const newRow = this.CurTable.appendChild(document.createElement("tr"));
+        newRow.className = "DynamicTable__Row";
+        for(let colIndex = 0; colIndex < this.ColCount; colIndex++) {
+            const newCell = newRow.appendChild(document.createElement("td"));
+            newCell.className = "DynamicTable__Sqr DynamicTable__Cell";
+        }
     }
     
     delColumn() {
-       
         this.DelColButton.style.visibility = 'hidden';
-        
-        if (this.ColCount == 1) {
-            return;
-        }
-        
+        if (this.ColCount === 1) return;
         this.ColCount --;
-        
-        let rows = this.CurTable.getElementsByClassName("DynTable__Row");
-        
-        for(let row of rows) {
-        
-            let LastElement    = row.lastElementChild;
-            row.removeChild(LastElement);    
+        for (let rowIndex = 0; rowIndex < this.LineCount; rowIndex++) {
+            const currentRow = this.CurTable.childNodes[rowIndex];
+            currentRow.removeChild(currentRow.childNodes[this.CurrentCellIndex]);
         }
-        
     }
     
     delLine() {
-       
-        if (this.LineCount == 1) {
-            return;
-        }
-        
+        this.DellineButton.style.visibility = 'hidden';
+        if (this.LineCount === 1) return;
         this.LineCount --;
-        
-        let CurTBody = this.CurTable.firstElementChild;
-        
-        let LastElement = CurTBody.lastElementChild;
-        
-        CurTBody.removeChild(LastElement);    
+        this.CurTable.removeChild(this.CurrentRow);
     }
      
     checkMouseOverEvent(event) {
         
-        if (event.target.classList.contains('DynTable__Cell')) { 
-            
+        if (event.target.classList.contains('DynamicTable__Cell')) {
+
+            this.CurrentRow         = event.target.parentElement;
+            this.CurrentCellIndex   = event.target.cellIndex;
+
             if (this.ColCount === 1){
                 this.DelColButton.style.visibility = 'hidden';
             }else {
@@ -118,7 +105,7 @@ class DynamicTable {
                 this.DellineButton.style.top = event.target.offsetTop + 'px';
             }
         
-        }else if (event.target.classList.contains('DynTable__DelButton')) {
+        }else if (event.target.classList.contains('DynamicTable__DelButton')) {
             
             event.target.style.visibility = 'visible';
             
@@ -127,12 +114,12 @@ class DynamicTable {
     
     checkMouseOutEvent(event) {
         
-        if(event.target.classList.contains('DynTable__Cell')) {
+        if(event.target.classList.contains('DynamicTable__Cell')) {
             
             this.DellineButton.style.visibility = 'hidden';
             this.DelColButton.style.visibility = 'hidden';       
             
-        }else if(event.target.classList.contains('DynTable__DelButton')) {
+        }else if(event.target.classList.contains('DynamicTable__DelButton')) {
         
            event.target.style.visibility = 'hidden'; 
             
@@ -141,4 +128,6 @@ class DynamicTable {
                
 }
 
-let DynTable = new DynamicTable(1);
+let DynTable = new DynamicTable(4, 4);
+// let DynTable2 = new DynamicTable(2, 2);
+// let DynTable3 = new DynamicTable(4, 8);

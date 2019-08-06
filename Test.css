@@ -1,85 +1,68 @@
-.DynTable {
+.DynamicTable {
     position: relative;
     box-sizing: border-box;
     display: table;
-    
     margin-left: 60px;
     margin-top: 60px;
-    
+    margin-bottom: 110px;
     padding: 1px;
-    border: 1px solid #48aae6;      
+    border: 1px solid #48aae6;
 }
-
-.DynTable__Sqr { 
+.DynamicTable__Sqr {
     width: 50px;
     height: 50px;
     border: 1px solid white;
-    box-sizing: border-box;    
+    box-sizing: border-box;
 }
-
-.DynTable__Table {
+.DynamicTable__Table {
     position: relative;
     padding: 0;
     border-spacing: 0px;
 }
-
-.DynTable__Cell{ 
+.DynamicTable__Cell{
     background-color: #48aae6;
 }
-
-.DynTable__Button {
+.DynamicTable__Button {
     position: absolute;
     cursor: pointer;
-    
     text-align: center;
     vertical-align: middle;
-    
     font-size: 25px;
     color: white;
     font-weight: bold;
-    transition: background-color 3s, visibility ease 0.5s, left 0.5s, top 0.5s;
+    transition: background-color 3s, left 0.5s, top 0.5s;
 }
-
-.DynTable__AddButton {
+.DynamicTable__AddButton {
     background-color: #f3a500;
 }
-
-.DynTable__AddButton:hover{
+.DynamicTable__AddButton:hover{
     background-color: #f6c052;    
 }
-
-.DynTable__AddColumn {
-    
+.DynamicTable__AddColumn {
     left: 100%;
     margin-left: 2px;
     top: 1px;
-    
 }
-
-.DynTable__AddLine {
-    
+.DynamicTable__AddLine {
     left: 1px;
     top: 100%;
     margin-top: 2px;
-    
 }
-
-.DynTable__DelButton {
+.DynamicTable__DelButton {
     background-color: #b20000;
-     visibility: hidden; 
+    visibility: hidden;
+    transition: background-color 3s, visibility ease 0.5s, left 0.5s, top 0.5s;
 }
-
-.DynTable__DelButton:hover{
+.DynamicTable__DelButton:hover{
     background-color: #ca4c49;
+    transition: background-color 3s, visibility ease 0s, left 0.5s, top 0.5s;
 }
-
-.DynTable__DelColumn {
+.DynamicTable__DelColumn {
     margin-left: 1px;
     bottom: 100%;    
     margin-bottom: 2px
 }
-
-.DynTable__DelLine {
+.DynamicTable__DelLine {
     margin-top: 1px;    
     right: 100%;
     margin-right: 2px;
